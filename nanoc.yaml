@@ -1,0 +1,5 @@
+data_sources:
+  - type: filesystem_unified
+    content_dir: '../'
+    layouts_dir: 'layouts'
+

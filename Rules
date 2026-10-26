@@ -1,0 +1,34 @@
+compile '/**/*.md' do
+	filter :redcarpet, renderer: RougeHTML, options: { 
+		fenced_code_blocks: true,
+		autolink: true,
+		tables: true 
+	}
+	filter :rewrite_links
+	layout '/default.*'
+	write item.identifier + '.html'
+end
+
+compile '/**/*.adoc' do
+	filter :asciidoctor
+	layout '/default.*'
+	write item.identifier + '.html'
+end
+
+# TODO: handle this later
+ignore '/**/*.typ'
+
+passthrough '/**/*.html'
+passthrough '/**/*.css'
+passthrough '/**/*.png'
+passthrough '/**/*.jpg'
+passthrough '/**/*.c'
+passthrough '/**/*.h'
+passthrough '/**/*.pdf'
+passthrough '/**/*.yml'
+passthrough '/**/*.svg'
+ignore '/**/*.csl'
+
+# Layout routing
+layout '/*', :erb
+

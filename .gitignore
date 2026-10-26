@@ -1,0 +1,4 @@
+*.log
+output/
+tmp/
+Gemfile.lock
