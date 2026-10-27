@@ -18,6 +18,13 @@ compile '/**/*.md' do
 	filter :rewrite_links
 	layout '/default.*'
 	write item.identifier + '.html'
+
+	# Make this also become index.html if readme.md.
+	path_components = item.identifier.components
+	if path_components[-1] == 'readme.md'
+		path_components[-1] = 'index.html'
+		write '/' + path_components.join('/')
+	end
 end
 
 compile '/**/*.adoc' do
