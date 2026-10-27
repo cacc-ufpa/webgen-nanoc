@@ -51,6 +51,10 @@ jobs:
           bundler-cache: true
           working-directory: .nanoc
 
+      - name: Generate style for md codeblocks
+        run: bundle exec rougify style github > layouts/syntax.css
+        working-directory: .nanoc
+
       - name: Compile Nanoc site
         run: bundle exec nanoc compile
         working-directory: .nanoc

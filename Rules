@@ -1,3 +1,14 @@
+preprocess do
+	# If both a static .pdf and a source .typ exist, drop the static .pdf.
+	# Then the compiled Typst version takes precedence, avoiding route collisions.
+	@items.delete_if do |item|
+		if item.identifier.ext == 'pdf'
+			typ_identifier = item.identifier.to_s.sub(/\.pdf$/, '.typ')
+			@items[typ_identifier] != nil
+		end
+	end
+end
+
 compile '/**/*.md' do
 	filter :redcarpet, renderer: RougeHTML, options: { 
 		fenced_code_blocks: true,
@@ -15,8 +26,10 @@ compile '/**/*.adoc' do
 	write item.identifier + '.html'
 end
 
-# TODO: handle this later
-ignore '/**/*.typ'
+compile '/**/*.typ' do
+	filter :typst
+	write item.identifier.without_ext + '.pdf'
+end
 
 passthrough '/**/*.html'
 passthrough '/**/*.css'

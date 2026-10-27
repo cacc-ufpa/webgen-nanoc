@@ -3,3 +3,11 @@ data_sources:
     content_dir: '../'
     layouts_dir: 'layouts'
 
+text_extensions:
+  - md
+  - adoc
+  - typ
+  - html
+  - css
+  - js
+  - erb
